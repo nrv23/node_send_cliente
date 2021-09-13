@@ -1,12 +1,23 @@
-import React from 'react';
+import React,{useContext,useEffect} from 'react';
 import Layout from '../components/Layout';
 import {useFormik} from 'formik';// validacion de formularios
 import * as Yup from 'yup';
+import authContext from '../context/authContext';
+import Alerta from '../components/Alerta';
+import { useRouter } from 'next/router';
 
 export default function Login() {
 
     //validacion de formularios con formik y yup
 
+    const { iniciarSesion,mensaje,error,autenticado } =useContext(authContext);
+    const router = useRouter();
+
+    useEffect(() => {
+        if(autenticado) {
+            router.push('/'); // ir a la pagina principal
+        }
+    },[autenticado])
     const formik = useFormik({
         initialValues: { // en este objeto se meten los valores quevan a ser los campos del formularo.
             // formik de una vez va llenar el state
@@ -26,7 +37,7 @@ export default function Login() {
                     .required("El password no debe estar vacío")  
         }),
         onSubmit: (valores) => { // el parametros valores va ser el state del formulario
-            console.log("click")
+            iniciarSesion(valores);
         }
     })
 
@@ -37,6 +48,9 @@ export default function Login() {
             <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">
                 Iniciar Sesión
             </h2>
+            {
+                error && mensaje && <Alerta tipo="E" />
+            }
             <div className="flex justify-center mt-5">
                 <div className="w-full max-w-lg">
                     <form className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
@@ -66,7 +80,7 @@ export default function Login() {
                         <div className="mb-4">
                             <label htmlFor="password" className="block text-black text-sm font-bold mb-2">Password</label>
                             <input 
-                                type="text" 
+                                type="password" 
                                 name="password" 
                                 id="password" 
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
