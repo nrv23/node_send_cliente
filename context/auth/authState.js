@@ -11,9 +11,9 @@ import {
         OBTENER_USUARIO_EXITO,
         OBTENER_USUARIO_ERROR,
         CERRAR_SESION 
-} from "../types";
-import * as authService from "../servicios/authService";
-import tokenAuth from "../config/tokenAuth";
+} from "../../types";
+import * as authService from "../../servicios/authService";
+import tokenAuth from "../../config/tokenAuth";
 
 
 const AuthState = ({children}) => {
@@ -94,10 +94,12 @@ const AuthState = ({children}) => {
             }
 
             const {data:{usuario}} = await authService.obtenerUsuarioAutenticado();
+           if(usuario) {
             dispatch({
                 type: OBTENER_USUARIO_EXITO,
                 payload: usuario
             })
+           }
         } catch(error) {
             console.log(error)
 
@@ -125,11 +127,11 @@ const AuthState = ({children}) => {
                 usuarioActual: state.usuarioActual,
                 mensaje: state.mensaje,
                 error: state.error,
-                usuarioActual: state.usuarioActual,
                 registrarUsuario,
                 iniciarSesion,
                 usuarioAutenticado,
-                cerrarSesion
+                cerrarSesion,
+                obtenerToken
             }}
         >
 

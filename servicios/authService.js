@@ -18,3 +18,4 @@ export const autenticarUsuario = datos => {
 }
 
 export const obtenerUsuarioAutenticado = () => clienteAxios.get('/api/auth/');
+

@@ -1,21 +1,38 @@
 import React,{useContext,useEffect} from 'react';
 import Link from 'next/link';
-import authContext from '../context/authContext';
+import authContext from '../context/auth/authContext';
+import appContext from '../context/app/appContext';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+    
+    const router = useRouter();
 
     const { usuarioAutenticado,usuarioActual,cerrarSesion } =useContext(authContext);
 
+    const {limpiarState} =useContext(appContext);
+
     useEffect(() => {
         usuarioAutenticado();
-    },[])
+    },[]);
+
+
+    const irAPaginaPrincipal = () => {
+        router.push('/');
+        limpiarState();
+    }
 
     return ( 
 
         <header className="py-8 flex-col md:flex-row items-center justify-between">
-            <Link href="/">
-                <img src="logo.svg"  alt="" className="w-64 mb-8 md:mb-0 "/>        
-            </Link>
+           
+            <img 
+                src="/logo.svg" 
+                alt="" 
+                className="w-64 mb-8 md:mb-0 cursor-pointer"
+                onClick={irAPaginaPrincipal}
+            />        
+        
 
             <div className="mt-5">
                 {

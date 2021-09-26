@@ -8,7 +8,7 @@ import {
     OBTENER_USUARIO_ERROR,
     OBTENER_USUARIO_EXITO,
     CERRAR_SESION
-} from "../types";
+} from "../../types";
 
 
 
@@ -53,7 +53,8 @@ export default (state,action) => {
         case OBTENER_USUARIO_EXITO:
             return {
                 ...state,
-                usuarioActual: action.payload
+                usuarioActual: action.payload,
+                autenticado: true
             }
         case OBTENER_USUARIO_ERROR:
             return {

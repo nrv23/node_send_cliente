@@ -2,7 +2,7 @@ import React,{useContext,useEffect} from 'react';
 import Layout from '../components/Layout';
 import {useFormik} from 'formik';// validacion de formularios
 import * as Yup from 'yup';
-import authContext from '../context/authContext';
+import authContext from '../context/auth/authContext';
 import Alerta from '../components/Alerta';
 import { useRouter } from 'next/router';
 
